@@ -401,7 +401,9 @@
         <div class="slide center-content">
             <div class="slide-content">
                 <div class="slide-image">
-                    <img src="01-ppt-converter.png" alt="PPT 변환기" onclick="openModal(this.src)">
+                    <a href="https://www.threads.com/@miri.ad.saiz/post/DHLtuQ5PMD3?xmt=AQF0-2DQE6BYru0LpTzE2Dx4S2julaoYPhtvJjqZ6FDAAA" target="_blank" style="cursor: pointer;">
+                        <img src="01-ppt-converter.png" alt="PPT 변환기" style="cursor: pointer;">
+                    </a>
                 </div>
                 <div class="slide-text">
                     <ul style="font-size: 2rem; margin-top: 1rem; line-height: 2;">
@@ -488,7 +490,7 @@
             <div style="text-align: center;">
                 <h2 style="font-size: 3rem; margin-bottom: 3rem;">핵심 팁 발견</h2>
                 <ul style="font-size: 2.5rem; line-height: 2.2; list-style: none; padding: 0;">
-                    <li style="margin-bottom: 1.5rem; color: var(--purple-accent); font-weight: 600;">"이걸 누르면 이런 화면이 뜸게 해달라"</li>
+                    <li style="margin-bottom: 1.5rem; color: var(--purple-accent); font-weight: 600;">"이걸 누르면 이런 화면이 뜨게 해달라"</li>
                     <li>이런 식으로 사용자 경험 중심으로 설명하면 효과적입니다</li>
                 </ul>
             </div>
@@ -593,7 +595,9 @@
         <div class="slide center-content">
             <div class="slide-content">
                 <div class="slide-image">
-                    <img src="08-tools-evolution.png" alt="블로그 SaaS" onclick="openModal(this.src)">
+                    <a href="https://www.threads.com/@miri.ad.saiz/post/DLuYZh7v8ox?xmt=AQF0-2DQE6BYru0LpTzE2Dx4S2julaoYPhtvJjqZ6FDAAA" target="_blank" style="cursor: pointer;">
+                        <img src="08-tools-evolution.png" alt="블로그 SaaS" style="cursor: pointer;">
+                    </a>
                 </div>
                 <div class="slide-text">
                     <h2>블로그 SaaS 도전</h2>
@@ -768,6 +772,29 @@
             </div>
         </div>
 
+        <!-- 슬라이드 49: 개인 경험 공유 -->
+        <div class="slide center-content">
+            <div style="text-align: center; padding: 2rem;">
+                <p style="font-size: 2.3rem; line-height: 2; margin-bottom: 2rem;">
+                    비개발자인 제가 <span style="color: var(--purple-accent); font-weight: 600;">바이브코딩으로 수익을 내고 있습니다.</span>
+                </p>
+                <p style="font-size: 2.3rem; line-height: 2; margin-bottom: 2rem;">
+                    그리고 예정된 수입은 계속 있어요.
+                </p>
+                <p style="font-size: 2.3rem; line-height: 2; margin-bottom: 2rem;">
+                    본격적으로 바이브코딩을 한지 <span style="color: var(--purple-accent); font-weight: 600;">2달정도</span> 됐습니다.<br>
+                    수입을 낸지는 <span style="color: var(--purple-accent); font-weight: 600;">1달정도</span> 됐고요.
+                </p>
+                <p style="font-size: 2.3rem; line-height: 2; margin-bottom: 2rem;">
+                    저는 <span style="color: var(--purple-accent); font-weight: 600;">시스템 빌더</span>로서 바이브코딩을 잘 활용해보려고 합니다.
+                </p>
+                <p style="font-size: 2.5rem; line-height: 2; font-weight: 600; margin-top: 3rem;">
+                    여러분들도 여러분만의 방향으로<br>
+                    바이브코딩을 잘 활용할 수 있기를 바랍니다.
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <!-- 이미지 모달 -->
@@ -780,7 +807,7 @@
 
     <!-- 슬라이드 카운터 -->
     <div class="slide-counter">
-        <span id="currentSlide">1</span> / <span id="totalSlides">47</span>
+        <span id="currentSlide">1</span> / <span id="totalSlides">49</span>
     </div>
 
     <script>
@@ -869,6 +896,50 @@
                 closeModal();
             }
         });
+
+        // 터치 스와이프 지원
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        
+        const handleTouchStart = (event) => {
+            touchStartX = event.changedTouches[0].screenX;
+            touchStartY = event.changedTouches[0].screenY;
+        };
+        
+        const handleTouchEnd = (event) => {
+            touchEndX = event.changedTouches[0].screenX;
+            touchEndY = event.changedTouches[0].screenY;
+            handleSwipe();
+        };
+        
+        const handleSwipe = () => {
+            const swipeThreshold = 50; // 최소 스와이프 거리
+            const verticalThreshold = 100; // 수직 움직임 최대 허용치
+            
+            const horizontalDiff = touchStartX - touchEndX;
+            const verticalDiff = Math.abs(touchStartY - touchEndY);
+            
+            // 수직 움직임이 너무 크면 스와이프로 인식하지 않음
+            if (verticalDiff > verticalThreshold) {
+                return;
+            }
+            
+            // 왼쪽으로 스와이프 (다음 슬라이드)
+            if (horizontalDiff > swipeThreshold) {
+                nextSlide();
+            }
+            
+            // 오른쪽으로 스와이프 (이전 슬라이드)
+            if (horizontalDiff < -swipeThreshold) {
+                previousSlide();
+            }
+        };
+        
+        // 터치 이벤트 리스너 추가
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
         // 초기화
         showSlide(0);
